@@ -2,6 +2,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def index():
     return "<h1>Hello Flask</h1>"
@@ -21,7 +22,9 @@ def greet(name):
     return '<h1>Hello, %s</h1>' % name
 
 
-import click 
+import click
+
+
 @app.cli.command()
 def hello():
-   click.echo("hello, cli")
+    click.echo("hello, cli")

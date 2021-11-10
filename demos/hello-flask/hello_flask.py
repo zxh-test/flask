@@ -22,16 +22,9 @@ def greet(name):
     return '<h1>Hello, %s</h1>' % name
 
 
-<<<<<<< HEAD
-import click 
-@app.cli.command()
-def hello():
-   click.echo("hello, cli")
-=======
 import click
 
 
 @app.cli.command()
 def hello():
     click.echo("hello, cli")
->>>>>>> master

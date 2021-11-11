@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ user.username }}'s watchlist</title>
+</head>
+<body>
+<a href="{{ url_for('index') }}">&larr; Return</a>
+<h2>{{ user.username }}</h2>
+{% if user.bio %}
+    <i>{{ user.bio }}</i>
+{% else %}
+    <i>the boy has not provided a bio</i>
+{% endif %}
+
+<h5>{{ user.username }}'s Watchlist ({{ movies|length }}):</h5>
+<ul>
+    {% for movie in movies %}
+        <li>{{ movie.name }} - {{ movie.years }}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

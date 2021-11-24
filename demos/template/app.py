@@ -54,3 +54,8 @@ def baz(n):
     if n == 'baz':
         return True
     return False
+
+
+@app.route('/test/')
+def test_fun():
+    return render_template('test.html')

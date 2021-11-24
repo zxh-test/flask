@@ -48,6 +48,11 @@ def musical(s):
     return s + Markup(' &#9835;')
 
 
+@app.template_filter('filter_len')
+def my_length(s):
+    return len(s)
+
+
 # 注册自定义测试器
 @app.template_test()
 def baz(n):
@@ -56,6 +61,7 @@ def baz(n):
     return False
 
 
+# 模版辅助工具
 @app.route('/test/')
 def test_fun():
     return render_template('test.html')

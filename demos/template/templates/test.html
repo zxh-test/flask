@@ -9,6 +9,13 @@
     <li>自定义上下文函数：{{ foo }}</li>
     <li>自定义全局函数：{{ bar() }}</li>
     <li>自定义过滤器：{{ 'music'|musical }}</li>
+    <li>自定义测试器：
+        {% if 'ba' is baz %}
+            返回True
+        {% else %}
+            返回False
+        {% endif %}
+    </li>
 </ul>
 </body>
 </html>

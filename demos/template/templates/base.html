@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        <meta charset="UTF-8">
+        <title>{% block title %}Template - HelloFlask{% endblock %}</title>
+        {% block styles %}
+              <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+        {% endblock %}
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='dog.png') }}">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <a class="navbar-brand" href="{{ url_for('index') }}">Home</a>
+</nav>
+<main>
+    {% for message in get_flashed_messages() %}
+        <div class="alert">{{ message }}</div>
+    {% endfor %}
+    {% block content %}{% endblock %}
+</main>
+<footer>
+    {% block footer %}
+        ...
+    {% endblock %}
+</footer>
+{% block scripts %}
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+{% endblock %}
+</body>
+</html>

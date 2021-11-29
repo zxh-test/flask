@@ -6,7 +6,7 @@
 </head>
 <body>
 <a href="{{ url_for('index') }}">&larr; Return</a>
-<h2>{{ user.username }}</h2>
+<h2><img src="{{ url_for('static', filename='dog.png')}}" width="50"> {{ user.username }}</h2>
 {% if user.bio %}
     <i>{{ user.bio }}</i>
 {% else %}

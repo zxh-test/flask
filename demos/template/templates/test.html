@@ -18,6 +18,9 @@
             返回False
         {% endif %}
     </li>
+    <li>弘的使用：{% from '_macros.html' import qux %}
+    	{{ qux(amount=5) }}
+    </li>
 </ul>
 </body>
 </html>

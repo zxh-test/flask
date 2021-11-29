@@ -21,6 +21,7 @@ def say_hello():
 def greet(name):
     return '<h1>Hello, %s</h1>' % name
 
+
 # 使用<converter:variable_name>可以选择性的加上一个转换器，为变量指定规则
 @app.route('/post/<int:post_id>')
 def show_post(post_id):

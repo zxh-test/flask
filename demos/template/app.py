@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, flash, url_for, redirect
 
 user = {
     "username": "Bob",
@@ -14,16 +14,22 @@ movies = [
 ]
 
 app = Flask(__name__)
+app.secret_key = 'secret string'
 
 
 @app.route('/')
 def index():
-    return "<h1>Home</h1>"
+    return render_template('index.html')
 
 
 @app.route('/watchlist')
 def watchlist():
     return render_template('watchlist.html', user=user, movies=movies)
+
+
+@app.route('/watchlist2')
+def watchlist2():
+    return render_template('watchlist_with_static.html', user=user, movies=movies)
 
 
 # 注册模版上下文处理函数
@@ -65,3 +71,16 @@ def baz(n):
 @app.route('/test/')
 def test_fun():
     return render_template('test.html')
+
+
+# 使用flash() 函数"闪现"消息
+@app.route('/flash')
+def just_flash():
+    flash('I am flash who is looking for me?')
+    return redirect(url_for('index'))
+
+
+# 404错误处理器
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('errors/404.html'), 404

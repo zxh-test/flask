@@ -11,5 +11,6 @@
   <li class="list-group-item">Global: {{ bar() }}</li>
   <li class="list-group-item">Test: {% if name is baz %}I am baz{% endif %}</li>
   <li class="list-group-item">{{ qux(amount=1) }}</li>
+  <li class="list-group-item"><a href="{{ url_for('just_flash') }}">Flash something</a></li>
 </ul>
 {% endblock %}

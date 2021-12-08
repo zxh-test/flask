@@ -25,5 +25,5 @@ def basic():
 def validate_number():
     forty = FortyTwoForm()
     if forty.validate_on_submit():
-        pass
+        return 'welcome'
     return render_template('number.html', forty=forty)

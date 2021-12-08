@@ -19,4 +19,4 @@ class FortyTwoForm(FlaskForm):
 
     def validate_answer(forty, field):
         if field.data != 42:
-            raise ValueError('Must be 42')
+            raise ValidationError('Must be 42')

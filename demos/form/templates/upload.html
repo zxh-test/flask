@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
+{% from '_macros.html' import form_filed %}
 {% block content %}
-    <form method="post">
-        {{ upload.photo }}<br>
-        {{ upload.submit }}
+    <form method="post" enctype="multipart/form-data">
+        {{ upload.csrf_token }}
+        {{ form_filed(upload.photo) }}
+        {{ form_filed(upload.submit) }}
     </form>
 {% endblock %}

@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField
+from wtforms.validators import DataRequired, Length, ValidationError
 
 
 class LoginForm(FlaskForm):
@@ -10,3 +10,13 @@ class LoginForm(FlaskForm):
                              render_kw={'placeholder': 'your password'})
     remember = BooleanField(label='Remember')
     submit = SubmitField(label='Submit')
+
+
+# 行内验证器
+class FortyTwoForm(FlaskForm):
+    answer = IntegerField('input number')
+    submit = SubmitField()
+
+    def validate_answer(forty, field):
+        if field.data != 42:
+            raise ValueError('Must be 42')

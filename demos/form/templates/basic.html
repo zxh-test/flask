@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
+{% from '_macros.html' import form_filed %}
 {% block content %}
 <form method="post">
     {{ form.csrf_token }}
     <div class="form-group">
-        {{ form.username.label }}:
-        {{ form.username(class="form-control") }}
+        {{ form_filed(form.username) }}
     </div>
     <div>
-        {{ form.password.label }}:
-        {{ form.password(class="form-control") }}
+        {{ form_filed(form.password) }}
     </div>
     <div>
         {{ form.remember.label }}

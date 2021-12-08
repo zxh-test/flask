@@ -1,0 +1,7 @@
+{% macro form_filed(filed) %}
+    {{ filed.label }}<br>
+    {{ filed(class="form-control") }}<br>
+    {% for message in filed.errors %}
+        <small class="error">{{ message }}</small>
+    {% endfor %}
+{% endmacro %}

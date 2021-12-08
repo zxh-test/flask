@@ -1,5 +1,5 @@
 from flask import render_template, Flask, flash, redirect, url_for, request
-from form import LoginForm, FortyTwoForm
+from form import LoginForm, FortyTwoForm, uploadFile
 
 app = Flask(__name__)
 
@@ -27,3 +27,9 @@ def validate_number():
     if forty.validate_on_submit():
         return 'welcome'
     return render_template('number.html', forty=forty)
+
+
+@app.route('/upload')
+def upload_file():
+    upload = uploadFile()
+    return render_template('upload.html', upload=upload)

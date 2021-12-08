@@ -1,6 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
 <form method="post">
     {{ form.csrf_token }}
-    {{ form.username.label }}:{{ form.username }}<br>
-    {{ form.password.label }}:{{ form.password }}<br>
-    {{ form.submit }}{{ form.remember.label }}{{ form.remember }}<br>
+    <div class="form-group">
+        {{ form.username.label }}:
+        {{ form.username(class="form-control") }}
+    </div>
+    <div>
+        {{ form.password.label }}:
+        {{ form.password(class="form-control") }}
+    </div>
+    <div>
+        {{ form.remember.label }}
+        {{ form.remember(class="checkbox") }}<pre>{{ form.submit(class='btn btn-primary') }}</pre>
+    </div>
 </form>
+{% endblock %}

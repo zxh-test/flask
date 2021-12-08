@@ -29,7 +29,7 @@ def validate_number():
     return render_template('number.html', forty=forty)
 
 
-@app.route('/upload')
+@app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     upload = uploadFile()
     return render_template('upload.html', upload=upload)

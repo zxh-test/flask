@@ -33,5 +33,5 @@ class FortyTwoForm(FlaskForm):
 
 # 定义文件上传表单
 class uploadFile(FlaskForm):
-    photo = FileField(validators=[FileRequired(), FileAllowed('png')])
+    photo = FileField(validators=[FileRequired(), FileAllowed(['png'])])
     submit = SubmitField()

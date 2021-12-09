@@ -1,7 +1,16 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, MultipleFileField
 from wtforms.validators import DataRequired, Length, ValidationError
 from flask_wtf.file import FileField, FileRequired, FileAllowed
+
+
+# 工厂函数形式的全局验证器
+def is_43(message=None):
+    def _is_43(form, field):
+        if field.data != 43:
+            raise ValidationError(message)
+
+    return _is_43
 
 
 class LoginForm(FlaskForm):
@@ -11,14 +20,6 @@ class LoginForm(FlaskForm):
                              render_kw={'placeholder': 'your password'})
     remember = BooleanField(label='Remember')
     submit = SubmitField(label='Submit')
-
-
-# 工厂函数形式的全局验证器
-def is_43(message=None):
-    def _is_43(form, field):
-        if field.data != 43:
-            raise ValidationError(message)
-    return _is_43
 
 
 # 定义行内验证器
@@ -34,4 +35,10 @@ class FortyTwoForm(FlaskForm):
 # 定义文件上传表单
 class uploadFile(FlaskForm):
     photo = FileField(validators=[FileRequired(), FileAllowed(['png'])])
+    submit = SubmitField()
+
+
+# 多文件上传
+class MultiUploadForm(FlaskForm):
+    photos = MultipleFileField('Upload Photo', validators=[DataRequired()])
     submit = SubmitField()

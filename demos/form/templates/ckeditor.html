@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% from '_macros.html' import form_filed %}
+
+{% block content %}
+    <h1>Ckeditor with flask-ckeditor</h1>
+    <form method="post">
+        {{ form.csrf_token }}
+        {{ form_filed(form.title) }}
+        {{ form_filed(form.body) }}
+        {{ form.submit }}
+    </form>
+{% endblock %}

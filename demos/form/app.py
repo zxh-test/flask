@@ -1,9 +1,11 @@
-import uuid
+import uuid, os
 from flask import render_template, Flask, flash, redirect, url_for, session, send_from_directory
-from form import LoginForm, FortyTwoForm, uploadFile
-import os
+from form import LoginForm, FortyTwoForm, UploadFile, RichTextForm
+from flask_ckeditor import CKEditor
 
 app = Flask(__name__)
+ckeditor = CKEditor(app)
+app.config['CKEDITOR_SEERVE_LOCAL'] = True
 
 app.secret_key = 'secret string'
 app.config['UPLOAD_PATH'] = os.path.join(app.root_path, 'upload_images')
@@ -41,7 +43,7 @@ def random_filename(filename):
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
-    upload = uploadFile()
+    upload = UploadFile()
     if upload.validate_on_submit():
         f = upload.photo.data  # f的值：<FileStorage: 'test_pic1614858602921-2.png' ('image/png')>
         filename = random_filename(f.filename)
@@ -62,3 +64,12 @@ def get_file(filename):
     print(filename)
     return send_from_directory(app.config['UPLOAD_PATH'], filename)
 
+
+@app.route('/ckeditor', methods=['GET', 'POST'])
+def ckeditor():
+    form = RichTextForm()
+    if form.validate_on_submit():
+        title = form.title.data
+        body = form.body.data
+        return render_template('post.html', title=title, body=body)
+    return render_template('ckeditor.html', form=form)

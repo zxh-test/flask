@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, MultipleFileField
 from wtforms.validators import DataRequired, Length, ValidationError
 from flask_wtf.file import FileField, FileRequired, FileAllowed
+from flask_ckeditor import CKEditorField
 
 
 # 工厂函数形式的全局验证器
@@ -33,7 +34,7 @@ class FortyTwoForm(FlaskForm):
 
 
 # 定义文件上传表单
-class uploadFile(FlaskForm):
+class UploadFile(FlaskForm):
     photo = FileField(validators=[FileRequired(), FileAllowed(['png'])])
     submit = SubmitField()
 
@@ -41,4 +42,11 @@ class uploadFile(FlaskForm):
 # 多文件上传
 class MultiUploadForm(FlaskForm):
     photos = MultipleFileField('Upload Photo', validators=[DataRequired()])
+    submit = SubmitField()
+
+
+# 富文本编辑器
+class RichTextForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired(), Length(1,15)])
+    body = CKEditorField('Body', validators=[DataRequired()])
     submit = SubmitField()

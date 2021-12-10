@@ -49,4 +49,5 @@ class MultiUploadForm(FlaskForm):
 class RichTextForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(1,15)])
     body = CKEditorField('Body', validators=[DataRequired()])
-    submit = SubmitField()
+    save = SubmitField('Save')
+    publish = SubmitField('Publish')

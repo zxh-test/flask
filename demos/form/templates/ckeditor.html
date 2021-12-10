@@ -7,6 +7,11 @@
         {{ form.csrf_token }}
         {{ form_filed(form.title) }}
         {{ form_filed(form.body) }}
-        {{ form.submit }}
+        {{ form.publish }}
+        {{ form.save }}
     </form>
+{% endblock %}
+
+{% block scripts %}
+    {{ ckeditor.load() }}
 {% endblock %}

@@ -3,11 +3,18 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import TextAreaField, SubmitField
 from wtforms.validators import DataRequired
-import os
+import os, sys
+
+# 判断系统，系统不同database uri不同
+WIN = sys.platform.startswith('win')
+if WIN:
+    prefix = 'sqlite:///'
+else:
+    prefix = 'sqlite:////'
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
-    'DATABASE_URL', 'sqlite:////' + os.path.join(app.root_path, 'data.db'))
+    'DATABASE_URL', prefix + os.path.join(app.root_path, 'data.db'))
 app.secret_key = 'secret_string'
 db = SQLAlchemy(app)
 
@@ -86,3 +93,18 @@ def delete_note(note_id):
     else:
         abort(400)
     return redirect(url_for('index'))
+
+
+# Author
+class Author(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(79), unique=True)
+    phone = db.Column(db.String(20))
+
+
+# Article
+class Article(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), index=True)
+    body = db.Column(db.Text)
+    author_id = db.Column(db.Integer, db.ForeignKey('author.id'))

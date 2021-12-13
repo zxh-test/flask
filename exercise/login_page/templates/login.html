@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
+{% from '_macros.html' import form_filed %}
 {% block title %}Login{% endblock %}
 <h1>Login</h1>
 {% block content %}
     <form method="post">
         {{ form.csrf_token }}
-        {{ form.username.label }}
-        {{ form.username }}<br>
-        {{ form.password.label }}
-        {{ form.password }}<br>
-        {{ form.register }}
+        {{ form_filed(form.username) }}
+        {{ form_filed(form.password) }}
+        {{ form.login }} <a href="{{ url_for('register') }}">Register</a>
     </form>
 {% endblock %}

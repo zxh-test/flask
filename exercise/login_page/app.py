@@ -17,6 +17,7 @@ class Users(db.Model):
     password = db.Column(db.String(16))
 
 
+# flask shell 上下文
 @app.shell_context_processor
 def make_shell_context():
     return dict(db=db, Users=Users)
@@ -38,5 +39,12 @@ def register():
 
 @app.route("/login", methods=['POST', 'GET'])
 def login():
-    form = registerForm()
+    form = loginForm()
+    if form.validate_on_submit():
+        return redirect(url_for(''))
     return render_template('login.html', form=form)
+
+
+@app.route('/home')
+def home():
+    return render_template('welcome.html')

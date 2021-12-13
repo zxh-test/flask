@@ -1,1 +1,4 @@
-{%%}
+{% macro form_filed(filed) %}
+    {{ filed.label }}
+    {{ filed(**kwargs) }}<br>
+{% endmacro %}

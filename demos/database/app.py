@@ -1,4 +1,4 @@
-from flask import Flask, flash, redirect, render_template, url_for
+from flask import Flask, flash, redirect, render_template, url_for, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import TextAreaField, SubmitField
@@ -83,4 +83,6 @@ def delete_note(note_id):
         db.session.delete(note)
         db.session.commit()
         flash('Your note is delete.')
+    else:
+        abort(400)
     return redirect(url_for('index'))

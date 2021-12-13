@@ -1,0 +1,9 @@
+<h1>{{ notes|length }} notes</h1>
+{% for note in notes %}
+    {{ note.body }}<br>
+    <a href="{{ url_for('edit_note', note_id=note.id) }}">Edit</a>
+    <form method="post" action="{{ url_for('delete_note', note_id=note.id) }}">
+        {{ form.csrf_token }}
+        {{ form.delete }}
+    </form>
+{% endfor %}

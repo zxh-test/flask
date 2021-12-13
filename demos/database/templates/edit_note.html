@@ -1,0 +1,7 @@
+<h1>Edit Note</h1><br>
+<form method="post">
+  {{ form.csrf_token }}
+  {{ form.body.label }}<br>
+  {{ form.body(rows=5, cols=50) }}<br>
+  {{ form.edit }}
+</form>

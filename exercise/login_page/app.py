@@ -3,6 +3,8 @@ from flask import Flask, render_template, flash, redirect, url_for
 from form import loginForm, registerForm
 from flask_sqlalchemy import SQLAlchemy
 
+# todo 登录验证， 登录失败提醒， 登录成功 name传递
+
 app = Flask(__name__)
 app.secret_key = 'secret string'
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL',
@@ -41,11 +43,15 @@ def register():
 def login():
     form = loginForm()
     if form.validate_on_submit():
-        return redirect(url_for('home'))
+        if form.username.data == 'admin' and form.password.data == 'admin':
+            return redirect(url_for('home'))
+    flash('login failed')
     return render_template('login.html', form=form)
 
 
 @app.route('/home')
 def home():
-    return render_template('welcome.html')
+    form = loginForm()
+    username = form.username.data
+    return render_template('welcome.html', username=username)
 

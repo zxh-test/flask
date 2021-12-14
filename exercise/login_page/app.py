@@ -41,10 +41,11 @@ def register():
 def login():
     form = loginForm()
     if form.validate_on_submit():
-        return redirect(url_for(''))
+        return redirect(url_for('home'))
     return render_template('login.html', form=form)
 
 
 @app.route('/home')
 def home():
     return render_template('welcome.html')
+

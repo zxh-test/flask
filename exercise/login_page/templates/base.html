@@ -4,8 +4,16 @@
     {% block head %}
     <meta charset="UTF-8">
     <title>{% block title %}free exercise---login{% endblock %}</title>
-    {% block styles %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img.png') }}">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        {% block styles %}
+
+        {% endblock %}
+    </style>
+
     {% endblock %}
+
 </head>
 <body>
 <main>
@@ -15,5 +23,9 @@
 <footer>
     {% block footer %}{% endblock %}
 </footer>
-{% block scripts %}{% endblock %}
+{% block scripts %}
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+{% endblock %}
 </html>

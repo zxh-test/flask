@@ -1,13 +1,25 @@
 {% extends 'base.html' %}
+{% from '_macros.html' import form_filed %}
 {% block title %}Register{% endblock %}
-<h1>Register</h1>
 {% block content %}
-    <form method="post">
+<div class="container">
+    <div class="row justify-content-center bg-light" style="height: 500px">
+        <div class="align-self-center">
+            <form method="post">
         {{ form.csrf_token }}
-        {{ form.username.label }}
-        {{ form.username }}<br>
-        {{ form.password.label }}
-        {{ form.password }}<br>
-        {{ form.register }}
+        <h1>Register</h1><br>
+
+        <div class="form-group">
+            {{ form_filed(form.username) }}
+        </div>
+        <div>
+            {{ form_filed(form.password) }}
+        </div>
+        <a href="{{ url_for('register') }}">
+              <button type="button" class="btn btn-info">Register</button>
+        </a>
     </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

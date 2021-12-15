@@ -95,11 +95,17 @@ def delete_note(note_id):
     return redirect(url_for('index'))
 
 
+"""
+创建作者对应作品的模型，基于一对多的单向关系
+"""
+
+
 # Author
 class Author(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(79), unique=True)
+    name = db.Column(db.String(70), unique=True)
     phone = db.Column(db.String(20))
+    articles = db.relationship('Article')
 
 
 # Article
@@ -108,3 +114,23 @@ class Article(db.Model):
     title = db.Column(db.String(50), index=True)
     body = db.Column(db.Text)
     author_id = db.Column(db.Integer, db.ForeignKey('author.id'))
+
+
+"""
+创建作家和书的模型，基于一对多的双向关系
+"""
+
+
+# Writer
+class Writer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30), unique=True)
+    books = db.relationship('Book', back_populates='writers')
+
+
+# Book
+class Book(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(70), unique=True)
+    writer_id = db.Column(db.Integer, db.ForeignKey('writer.id'))
+    writers = db.relationship('Writer', back_populates='books')

@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, flash, redirect, url_for
+from flask import Flask, render_template, flash, redirect, url_for, request
 from form import loginForm, registerForm
 from flask_sqlalchemy import SQLAlchemy
 
@@ -51,7 +51,6 @@ def login():
 
 @app.route('/home')
 def home():
-    form = loginForm()
-    username = form.username.data
+    username = request.args.get('username')
     return render_template('welcome.html', username=username)
 

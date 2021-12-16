@@ -1,9 +1,13 @@
+import os
+import sys
 from flask import Flask, flash, redirect, render_template, url_for, abort
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from flask_wtf import FlaskForm
 from wtforms import TextAreaField, SubmitField
 from wtforms.validators import DataRequired
-import os, sys
+
+# todo: 使用backref简化双向关系定义
 
 # 判断系统，系统不同database uri不同
 WIN = sys.platform.startswith('win')
@@ -17,13 +21,16 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
     'DATABASE_URL', prefix + os.path.join(app.root_path, 'data.db'))
 app.secret_key = 'secret_string'
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 
+# 创建python shell 上下文
 @app.shell_context_processor
 def make_shell_context():
-    return dict(db=db, Note=Note)
+    return dict(db=db, Note=Note, Post=Post, Comment=Comment)
 
 
+# 定义 Note数据模型
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.Text)
@@ -134,3 +141,32 @@ class Book(db.Model):
     title = db.Column(db.String(70), unique=True)
     writer_id = db.Column(db.Integer, db.ForeignKey('writer.id'))
     writers = db.relationship('Writer', back_populates='books')
+
+
+# 级联操作
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), unique=True)
+    body = db.Column(db.Text)
+    comments = db.relationship('Comment', back_populates='posts', cascade='all')
+
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.Text)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+    posts = db.relationship('Post', back_populates='comments')
+
+
+# 事件监听
+class Draft(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.Text)
+    edit_time = db.Column(db.Integer, default=0)
+
+
+# set事件监听处理函数
+@db.event.listens_for(Draft.body, 'set')
+def add_edit_time(target, value, oldvalue, initiator):
+    if target.edit_time is not None:
+        target.edit_time += 1
